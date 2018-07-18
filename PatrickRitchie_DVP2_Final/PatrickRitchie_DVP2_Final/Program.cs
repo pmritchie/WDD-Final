@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace PatrickRitchie_DVP2_Final
 {
     class Program
@@ -30,6 +31,7 @@ namespace PatrickRitchie_DVP2_Final
 
                         Console.WriteLine($"Welcome, {currentPlayer.Name}! You are starting with {currentPlayer.GetCredits().GetCredits()} credits!\n" +
                             "Let's Play!");
+                        SavePlayerJSON(currentPlayer, addCredits);
                     }
                     break;
                 case 2:
@@ -45,9 +47,25 @@ namespace PatrickRitchie_DVP2_Final
 
             }
 
-         
+            using(StreamWriter file = File.CreateText(@"C:\path.txt"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, currentPlayer);
+            }
 
+             void SavePlayerJSON(Player name, Credits balance)
+            {
+                using (StreamWriter sw = new StreamWriter("Player.txt"))
+                {
+                    sw.WriteLine("[");
+                        sw.WriteLine("{");
+                        sw.WriteLine($"\"Name\" : \"{name}\",");
+                        sw.WriteLine($"\"Credits\" : \"{balance}\",");
+                        sw.WriteLine("}");
+                    sw.WriteLine("]");
 
+                }
+            }
 
         }
     }

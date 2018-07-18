@@ -8,6 +8,6 @@ namespace PatrickRitchie_DVP2_Final
 {
     class Cards
     {
-        int[] 
+        
     }
 }
