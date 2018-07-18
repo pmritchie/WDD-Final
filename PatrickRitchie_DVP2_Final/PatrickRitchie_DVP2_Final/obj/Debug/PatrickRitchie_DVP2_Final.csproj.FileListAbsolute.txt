@@ -12,3 +12,6 @@
 \\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\bin\Debug\PatrickRitchie_DVP2_Final.exe.config
 \\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\bin\Debug\PatrickRitchie_DVP2_Final.exe
 \\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\bin\Debug\PatrickRitchie_DVP2_Final.pdb
+\\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\bin\Debug\Newtonsoft.Json.dll
+\\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\bin\Debug\Newtonsoft.Json.xml
+\\vmware-host\Shared Folders\Documents\Patrick_Ritchie_Portfolio\WDD_Final\PatrickRitchie_DVP2_Final\PatrickRitchie_DVP2_Final\obj\Debug\PatrickRitchie_DVP2_Final.csproj.CopyComplete

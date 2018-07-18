@@ -9,15 +9,17 @@ namespace PatrickRitchie_DVP2_Final
     class Player
     {
         private string _userName;
+        private int _credits;
         Credits _playerCredits;
 
         public Player()
         {
 
         }
-        public Player(string userName)
+        public Player(string userName, int credits)
         {
             _userName = userName;
+            _credits = credits;
             
         }
 
@@ -25,6 +27,11 @@ namespace PatrickRitchie_DVP2_Final
         {
             get { return _userName; }
             set { _userName = value; }
+        }
+        public int Credits
+        {
+            get { return _credits; }
+            set { _credits = value; }
         }
 
         public Credits GetCredits()
