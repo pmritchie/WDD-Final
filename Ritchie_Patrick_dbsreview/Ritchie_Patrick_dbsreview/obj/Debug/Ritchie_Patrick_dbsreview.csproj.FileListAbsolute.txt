@@ -1,0 +1,24 @@
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.exe.config
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.exe
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.pdb
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Google.Protobuf.dll
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\MySql.Data.dll
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Google.Protobuf.xml
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\MySql.Data.xml
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csprojAssemblyReference.cache
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csproj.CoreCompileInputs.cache
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csproj.CopyComplete
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.exe
+C:\Users\Patrick M Ritchie\source\repos\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.pdb
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.exe.config
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.exe
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Ritchie_Patrick_dbsreview.pdb
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Google.Protobuf.dll
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\MySql.Data.dll
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\Google.Protobuf.xml
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\bin\Debug\MySql.Data.xml
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csprojAssemblyReference.cache
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.csproj.CopyComplete
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.exe
+\\vmware-host\Shared Folders\Desktop\MyPortfolio\Project & Portfolio ll\Ritchie_Patrick_dbsreview\Ritchie_Patrick_dbsreview\obj\Debug\Ritchie_Patrick_dbsreview.pdb
