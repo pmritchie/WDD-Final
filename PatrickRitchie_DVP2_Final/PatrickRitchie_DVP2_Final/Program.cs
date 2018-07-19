@@ -13,19 +13,20 @@ namespace PatrickRitchie_DVP2_Final
         {
             bool programIsRunning = true;
             Player currentPlayer = new Player();
-
+            //loop through main menu
             while (programIsRunning)
             {
                 Console.WriteLine("Let's play some Card Roulette!\n" +
                     "1: New User\n" +
                     "2: Existing User\n" +
                     "3: Exit\n");
-
+                //user selection
                 int userChoice = Validation.GetInt(1, 3, "Select from the options above: ");
                 switch (userChoice)
                 {
                     case 1:
                         {
+                            //creates player and saves player data in JSON
                             string newPlayer = Validation.WhiteNull("Enter Player Name: ");
                             currentPlayer.Name = newPlayer;
 
@@ -39,7 +40,10 @@ namespace PatrickRitchie_DVP2_Final
                         break;
                     case 2:
                         {
-                            LoadJson();
+                            //load player data and choose player
+
+                            LoadJsonPlayers();
+
 
                         }
                         break;
@@ -72,17 +76,21 @@ namespace PatrickRitchie_DVP2_Final
 
 
             
-             void LoadJson()
+             void LoadJsonPlayers()
             {
                 using (StreamReader sr = new StreamReader("Player.json"))
                 {
                     string json = sr.ReadToEnd();
                     List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
+                    int assignment = 1;
                     foreach (var item in convert)
                     {
-                        Console.WriteLine("Name: {0}\nCredits: {1}", item.Name, item.Credits);
+                        Console.WriteLine("{0}\nName: {1}\nCredits: {2}",assignment, item.Name, item.Credits);
+                        assignment ++;
                     }
-                       
+                    int userChoice = Validation.GetInt(1, convert.Capacity, "Select from the options above: ");
+                    currentPlayer = convert[userChoice-1];
+                    Console.WriteLine("Welcome {0}! Lets play some cards! Your current credits are at {1}!", currentPlayer.Name, currentPlayer.Credits);
                 }
             }
             

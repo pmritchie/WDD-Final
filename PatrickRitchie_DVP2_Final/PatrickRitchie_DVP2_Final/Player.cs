@@ -10,7 +10,7 @@ namespace PatrickRitchie_DVP2_Final
     {
         private string _userName;
         private int _credits;
-        Credits _playerCredits;
+        
 
         public Player()
         {
@@ -34,14 +34,6 @@ namespace PatrickRitchie_DVP2_Final
             set { _credits = value; }
         }
 
-        public Credits GetCredits()
-        {
-            return _playerCredits;
-        }
 
-        public void SetCredits(Credits credits)
-        {
-            _playerCredits = credits;
-        }
     }
 }
