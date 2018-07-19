@@ -60,37 +60,81 @@ namespace PatrickRitchie_DVP2_Final
 
 
 
-             void SavePlayerJSON(Player name)
-            {
-                using (StreamWriter sw = new StreamWriter("Player.json"))
+            void SavePlayerJSON(Player name) {
+
+                //checks to see if file exists, if it does, load into a list to be rewritten as a new file with new info
+                if (File.Exists("Player.json")) {
+
+                    List<Player> converted;
+                    using (StreamReader sr = new StreamReader("Player.json"))
+                    { 
+                        string json = sr.ReadToEnd();
+                        List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
+                        converted = convert;
+                    }
+                    
+                    
+                        using (StreamWriter sw = new StreamWriter("Player.json"))
+                        {
+                        //add the existing players
+                        foreach (var item in converted)
+                        {
+                            sw.WriteLine("[");
+                            sw.WriteLine("{");
+                            sw.WriteLine($"\"Name\" : \"{item.Name}\",");
+                            sw.WriteLine($"\"Credits\" : \"{item.Credits}\",");
+                            sw.WriteLine("},");
+                           
+                        }
+                        //writes in new player
+                          
+                            sw.WriteLine("{");
+                            sw.WriteLine($"\"Name\" : \"{name.Name}\",");
+                            sw.WriteLine($"\"Credits\" : \"{name.Credits}\",");
+                            sw.WriteLine("}");
+                            sw.WriteLine("]");
+
+                        }
+
+                    
+                } else
                 {
-                    sw.WriteLine("[");
+                    using (StreamWriter sw = new StreamWriter("Player.json"))
+                    {
+                        sw.WriteLine("[");
                         sw.WriteLine("{");
                         sw.WriteLine($"\"Name\" : \"{name.Name}\",");
                         sw.WriteLine($"\"Credits\" : \"{name.Credits}\",");
                         sw.WriteLine("}");
-                    sw.WriteLine("]");
-
+                        sw.WriteLine("]");
+                    }
                 }
             }
 
 
-            
+            // function to load and choose players
              void LoadJsonPlayers()
             {
-                using (StreamReader sr = new StreamReader("Player.json"))
+                if (File.Exists("Player.json"))
                 {
-                    string json = sr.ReadToEnd();
-                    List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
-                    int assignment = 1;
-                    foreach (var item in convert)
+                    using (StreamReader sr = new StreamReader("Player.json"))
                     {
-                        Console.WriteLine("{0}\nName: {1}\nCredits: {2}",assignment, item.Name, item.Credits);
-                        assignment ++;
+                        string json = sr.ReadToEnd();
+                        List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
+                        int assignment = 1;
+                        foreach (var item in convert)
+                        {
+                            Console.WriteLine("{0}\nName: {1}\nCredits: {2}", assignment, item.Name, item.Credits);
+                            assignment++;
+                        }
+                        int userChoice = Validation.GetInt(1, convert.Count, "Select from the options above: ");
+                        currentPlayer = convert[userChoice - 1];
+                        Console.WriteLine("Welcome {0}! Lets play some cards! Your current credits are at {1}!", currentPlayer.Name, currentPlayer.Credits);
                     }
-                    int userChoice = Validation.GetInt(1, convert.Capacity, "Select from the options above: ");
-                    currentPlayer = convert[userChoice-1];
-                    Console.WriteLine("Welcome {0}! Lets play some cards! Your current credits are at {1}!", currentPlayer.Name, currentPlayer.Credits);
+                }
+                else
+                {
+                    Console.WriteLine("There are no profiles available, create one first");
                 }
             }
             

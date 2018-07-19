@@ -1,6 +1,10 @@
 [
 {
-"Name" : "Mikey",
+"Name" : "Mike",
+"Credits" : "500",
+},
+{
+"Name" : "Bob",
 "Credits" : "500",
 }
 ]
