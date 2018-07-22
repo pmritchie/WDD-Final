@@ -3,8 +3,13 @@
 "Name" : "Mike",
 "Credits" : "500",
 },
+[
 {
 "Name" : "Bob",
+"Credits" : "500",
+},
+{
+"Name" : "Joe",
 "Credits" : "500",
 }
 ]
