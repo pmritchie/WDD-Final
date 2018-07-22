@@ -16,7 +16,7 @@ namespace PatrickRitchie_DVP2_Final
             //loop through main menu
             while (programIsRunning)
             {
-                Console.WriteLine("Let's play some Card Roulette!\n" +
+                Console.WriteLine("Let's play some Card Roulette with HAL from 2001: A Space Odyssey!\n" +
                     "1: New User\n" +
                     "2: Existing User\n" +
                     "3: Exit\n");
@@ -136,6 +136,86 @@ namespace PatrickRitchie_DVP2_Final
                 {
                     Console.WriteLine("There are no profiles available, create one first");
                 }
+            }
+
+            void PlayGame()
+            {
+                int moves = 0;
+                while (true)
+                {
+                    PlayingDeck mainDeck = new PlayingDeck();
+                    mainDeck.newDeck();
+
+                    PlayingDeck player = new PlayingDeck();
+                    PlayingDeck computer = new PlayingDeck();
+
+                    bool boo = false;
+
+                    foreach (PlayingCard card in mainDeck.stack){
+                        if (boo)
+                        {
+                            player.stack.Add(card);
+                        }
+                        else
+                        {
+                            computer.stack.Add(card);
+                        }
+                        boo = !boo;
+                    }
+
+                    while(!player.isEmpty() && computer.isEmpty())
+                    {
+
+                        PlayingCard playerPick = (PlayingCard)player.draw();
+                        PlayingCard computerPick = (PlayingCard)computer.draw();
+                        moves++;
+
+                        Console.WriteLine($"You have drawn {playerPick.face} of {playerPick.suit}!\n" +
+                            "How much would you like to bet?");
+                        int playerBet = Validation.GetInt(0, currentPlayer.Credits,$"Place a bet between $0 and ${currentPlayer.Credits}");
+                        int computerMatch = playerBet;
+                        Console.WriteLine($"HAL has drawn {computerPick.face} of { computerPick.suit}!");
+                        
+
+                        if((int)playerPick.face >(int)computerPick.face)
+                        {
+                            Console.WriteLine(" You won! You beat HAL this round!");
+                            playerBet += computerMatch;
+                            currentPlayer.Credits += playerBet;
+
+                        }
+                        else if((int) playerPick.face < (int)computerPick.face)
+                        {
+                            Console.WriteLine("HAL won! Don't let HAL win anymore!");
+                            computerMatch += playerBet;
+                            currentPlayer.Credits -= computerMatch;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Oh look a draw!! Double or nothing now!");
+                            while((int) playerPick.face == (int)computerPick.face)
+                            {
+                                playerPick = (PlayingCard)player.draw();
+                                computerPick = (PlayingCard)computer.draw();
+
+                                if ((int)playerPick.face > (int)computerPick.face)
+                                {
+                                    Console.WriteLine(" You won! You beat HAL this round!");
+                                    
+                                }
+                                else if ((int)playerPick.face < (int)computerPick.face)
+                                {
+                                    Console.WriteLine("HAL won! Don't let HAL win anymore!");
+                                }
+                            }
+                            
+
+                        }
+
+                    }
+                }
+
+                
             }
             
         }

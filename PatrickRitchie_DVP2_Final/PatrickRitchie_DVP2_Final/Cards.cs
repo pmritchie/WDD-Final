@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace PatrickRitchie_DVP2_Final
 {
-    class Cards
+    public abstract class Card
     {
-        private string face;
-        private int value;
 
-        public Cards()
-        {
+        public enum Suit {Hearts =0, Clubs, Diamonds, Spades};
+        public enum Face {two= 1, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jeck, Queen, King }
+        public Suit suit;
+        public Face face;
 
-        }
-        public Cards(string _face, int _value)
+        public Card(Suit s, Face f)
         {
-            face = _face;
-            this.value = _value;
+            this.suit = s;
+            this.face = f;
         }
-        public override string ToString()
-        {
-            return face + " is worth" + value;
-        }
+
+        public abstract int getValue();
 
     }
 }
