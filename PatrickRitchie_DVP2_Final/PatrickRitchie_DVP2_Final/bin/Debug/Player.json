@@ -1,15 +1,15 @@
 [
 {
 "Name" : "Mike",
-"Credits" : "500",
+"Credits" : "510",
 },
 [
 {
-"Name" : "Bob",
-"Credits" : "500",
+"Name" : "Mike",
+"Credits" : "1300",
 },
 {
-"Name" : "Joe",
-"Credits" : "500",
+"Name" : "Mike",
+"Credits" : "1110"
 }
 ]

@@ -10,7 +10,7 @@ namespace PatrickRitchie_DVP2_Final
     {
 
         public enum Suit {Hearts =0, Clubs, Diamonds, Spades};
-        public enum Face {two= 1, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jeck, Queen, King }
+        public enum Face {Two= 1, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace }
         public Suit suit;
         public Face face;
 

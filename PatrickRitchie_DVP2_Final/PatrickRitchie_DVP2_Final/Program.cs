@@ -15,15 +15,13 @@ namespace PatrickRitchie_DVP2_Final
             Player currentPlayer = new Player();
             MainMenu();
            
-           
-
-
-
-
+            //save data
             void SavePlayerJSON(Player name) {
 
                 //checks to see if file exists, if it does, load into a list to be rewritten as a new file with new info
                 if (File.Exists("Player.json")) {
+                    Console.Clear();
+
 
                     List<Player> converted;
                     using (StreamReader sr = new StreamReader("Player.json"))
@@ -31,30 +29,41 @@ namespace PatrickRitchie_DVP2_Final
                         string json = sr.ReadToEnd();
                         List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
                         converted = convert;
+                        sr.Close();
                     }
-                    
-                    
+
+                    if (converted.Contains(name))
+                    {
+                        Console.WriteLine("That name has been choosen, please choose a different name");
+                        MainMenu();
+                    }
+                    else
+                    {
+
                         using (StreamWriter sw = new StreamWriter("Player.json"))
                         {
-                        //add the existing players
-                        foreach (var item in converted)
-                        {
-                            sw.WriteLine("[");
-                            sw.WriteLine("{");
-                            sw.WriteLine($"\"Name\" : \"{item.Name}\",");
-                            sw.WriteLine($"\"Credits\" : \"{item.Credits}\",");
-                            sw.WriteLine("},");
-                           
-                        }
-                        //writes in new player
-                          
+                            //add the existing players
+                            foreach (var item in converted)
+                            {
+                                sw.WriteLine("[");
+                                sw.WriteLine("{");
+                                sw.WriteLine($"\"Name\" : \"{item.Name}\",");
+                                sw.WriteLine($"\"Credits\" : \"{item.Credits}\",");
+                                sw.WriteLine("},");
+
+                            }
+                            //writes in new player
+
                             sw.WriteLine("{");
                             sw.WriteLine($"\"Name\" : \"{name.Name}\",");
-                            sw.WriteLine($"\"Credits\" : \"{name.Credits}\",");
+                            sw.WriteLine($"\"Credits\" : \"{name.Credits}\"");
                             sw.WriteLine("}");
                             sw.WriteLine("]");
 
+                            sw.Close();
+
                         }
+                    }
 
                     
                 } else
@@ -64,14 +73,14 @@ namespace PatrickRitchie_DVP2_Final
                         sw.WriteLine("[");
                         sw.WriteLine("{");
                         sw.WriteLine($"\"Name\" : \"{name.Name}\",");
-                        sw.WriteLine($"\"Credits\" : \"{name.Credits}\",");
+                        sw.WriteLine($"\"Credits\" : \"{name.Credits}\"");
                         sw.WriteLine("}");
                         sw.WriteLine("]");
+
+                        sw.Close();
                     }
                 }
             }
-
-
             // function to load and choose players
              void LoadJsonPlayers()
             {
@@ -82,14 +91,16 @@ namespace PatrickRitchie_DVP2_Final
                         string json = sr.ReadToEnd();
                         List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
                         int assignment = 1;
+                       
                         foreach (var item in convert)
                         {
-                            Console.WriteLine("{0}\nName: {1}\nCredits: {2}", assignment, item.Name, item.Credits);
+                            Console.WriteLine($"{assignment}\nName: {item.Name}\nCredits: {item.Credits}");
                             assignment++;
                         }
                         int userChoice = Validation.GetInt(1, convert.Count, "Select from the options above: ");
                         currentPlayer = convert[userChoice - 1];
-                        Console.WriteLine("Welcome {0}! Lets play some cards! Your current credits are at {1}!", currentPlayer.Name, currentPlayer.Credits);
+                        Console.WriteLine($"Welcome {currentPlayer.Name}! Lets play some cards! Your current credits are at {currentPlayer.Credits}!");
+                        sr.Close();
                     }
                 }
                 else
@@ -97,7 +108,7 @@ namespace PatrickRitchie_DVP2_Final
                     Console.WriteLine("There are no profiles available, create one first");
                 }
             }
-
+            // start game loop
             void PlayGame()
             {
                 bool runGame = true;
@@ -178,7 +189,7 @@ namespace PatrickRitchie_DVP2_Final
                                 }
                                 else if ((int)playerPick.face < (int)computerPick.face)
                                 {
-                                    currentPlayer.Credits -= thePot;
+                                    currentPlayer.Credits -= playerBet *2;
                                     Console.WriteLine("HAL won! Don't let HAL win anymore!" +
                                          $"You lost {playerBet *2} credits this round.\n\n" +
                                          $"Total Credits: {currentPlayer.Credits}");
@@ -187,31 +198,44 @@ namespace PatrickRitchie_DVP2_Final
                             
 
                         }
-                        //to continue, main menu or quit
-                        Console.WriteLine("Continue?\n\n"+
-                            "1: Yes\n"+
-                            "2: Main Menu\n"+
-                            "3: Save and Quit\n");
-
-                        int choice = Validation.GetInt(1, 3, "Choose an option above\n");
-                        switch (choice)
+                        if (currentPlayer.Credits <= 0)
                         {
-                            case 1:
-                                {
-                                    Console.WriteLine("Alright, let's keep going!");
-                                }break;
-                            case 2:
-                                {
-                                    SavePlayerJSON(currentPlayer);
-                                    runGame = false;
-                                    MainMenu();
-                                }break;
-                            case 3:
-                                {
-                                    SavePlayerJSON(currentPlayer);
-                                    runGame = false;
-                                    //add quit app
-                                }break;
+                            Console.WriteLine("You Lose! Better Luck Next time!");
+                            currentPlayer = null;
+
+                            MainMenu();
+                        }
+                        else
+                        {
+                            //to continue, main menu or quit
+                            Console.WriteLine("Continue?\n\n" +
+                                "1: Yes\n" +
+                                "2: Main Menu\n" +
+                                "3: Save and Quit\n");
+
+                            int choice = Validation.GetInt(1, 3, "Choose an option above\n");
+                            switch (choice)
+                            {
+                                case 1:
+                                    {
+                                        Console.WriteLine("Alright, let's keep going!");
+                                    }
+                                    break;
+                                case 2:
+                                    {
+                                        SavePlayerJSON(currentPlayer);
+                                        runGame = false;
+                                        MainMenu();
+                                    }
+                                    break;
+                                case 3:
+                                    {
+                                        SavePlayerJSON(currentPlayer);
+                                        runGame = false;
+                                        Environment.Exit(0);
+                                    }
+                                    break;
+                            }
                         }
 
                     }
@@ -219,7 +243,7 @@ namespace PatrickRitchie_DVP2_Final
 
                 
             }
-
+            //main menu
             void MainMenu()
             {
           
@@ -247,9 +271,9 @@ namespace PatrickRitchie_DVP2_Final
                                 Console.WriteLine($"Welcome, {currentPlayer.Name}! You are starting with {currentPlayer.Credits} credits!\n" +
                                     "Let's Play!");
 
-
+                                
                                 PlayGame();
-                                SavePlayerJSON(currentPlayer);
+                                
                                 Console.Clear();
                             }
                             break;
