@@ -12,6 +12,7 @@ namespace PatrickRitchie_DVP2_Final
         {
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
+            Console.Clear();
         }
     }
 }

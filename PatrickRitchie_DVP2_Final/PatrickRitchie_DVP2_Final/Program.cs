@@ -115,7 +115,7 @@ namespace PatrickRitchie_DVP2_Final
                 while (runGame)
                 {
                     // make deck of cards, suffle and deal cards
-                    int moves = 0;
+                    
                     PlayingDeck mainDeck = new PlayingDeck();
                     mainDeck.newDeck();
                     mainDeck.shuffle();
@@ -142,7 +142,7 @@ namespace PatrickRitchie_DVP2_Final
                         
                         PlayingCard playerPick = (PlayingCard)player.draw();
                         PlayingCard computerPick = (PlayingCard)computer.draw();
-                        moves++;
+                        
 
                         Console.WriteLine($"You have drawn {playerPick.face} of {playerPick.suit}!\n" +
                             "How much would you like to bet?");
@@ -158,6 +158,7 @@ namespace PatrickRitchie_DVP2_Final
                             Console.WriteLine(" You won! You beat HAL this round!\n"+
                                 $"You have won {thePot} credits this round\n\n"+
                                 $"Total Credits: {currentPlayer.Credits}");
+                            Utility.PauseBeforeContinuing();
                         }
                         else if((int) playerPick.face < (int)computerPick.face)
                         {
@@ -166,6 +167,7 @@ namespace PatrickRitchie_DVP2_Final
                             Console.WriteLine("HAL won! Don't let HAL win anymore!" +
                                 $"You lost {thePot} credits this round.\n\n" +
                                 $"Total Credits: {currentPlayer.Credits}");
+                            Utility.PauseBeforeContinuing();
                         }
                         else// incase of a draw, double or nothing
                         {
@@ -174,7 +176,7 @@ namespace PatrickRitchie_DVP2_Final
                             {
                                 playerPick = (PlayingCard)player.draw();
                                 computerPick = (PlayingCard)computer.draw();
-                                moves++;
+                                
                                 thePot = thePot * 2;
                                 Console.WriteLine($"You have drawn {playerPick.face} of {playerPick.suit}!\n"+
                                     $"Hal has drawn a {computerPick.face} of {computerPick.suit}\n\n");
@@ -185,6 +187,7 @@ namespace PatrickRitchie_DVP2_Final
                                     Console.WriteLine(" You won! You beat HAL this round!\n" +
                                         $"You have won {thePot} credits this round\n\n" +
                                         $"Total Credits: {currentPlayer.Credits}");
+                                    Utility.PauseBeforeContinuing();
 
                                 }
                                 else if ((int)playerPick.face < (int)computerPick.face)
@@ -193,6 +196,7 @@ namespace PatrickRitchie_DVP2_Final
                                     Console.WriteLine("HAL won! Don't let HAL win anymore!" +
                                          $"You lost {playerBet *2} credits this round.\n\n" +
                                          $"Total Credits: {currentPlayer.Credits}");
+                                    Utility.PauseBeforeContinuing();
                                 }
                             }
                             
@@ -202,7 +206,7 @@ namespace PatrickRitchie_DVP2_Final
                         {
                             Console.WriteLine("You Lose! Better Luck Next time!");
                             currentPlayer = null;
-
+                            Utility.PauseBeforeContinuing();
                             MainMenu();
                         }
                         else
@@ -282,7 +286,11 @@ namespace PatrickRitchie_DVP2_Final
                                 //load player data and choose player
 
                                 LoadJsonPlayers();
-                                PlayGame();
+                                if(currentPlayer == null)
+                                {
+                                    PlayGame();
+                                }
+                                
 
                                 Console.Clear();
 
