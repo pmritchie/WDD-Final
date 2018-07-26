@@ -1,13 +1,3 @@
-
-class Player
-{
-		
-		constructor(userName, credits){
-		this.userName = userName;
-		this.credits = credits;
-		}
-
-	}
 function inputInt(message){
 		var input = "";	
 			while(input == "" || Number.isInteger(input) == false){
@@ -34,37 +24,132 @@ function inputBlank(message){
 	}
 
 
-// function shuffle() {
+ function playGame(){
+	this.mainDeck = new Deck();
+	this.mainDeck.createDeck(mainDeck);
+	this.mainDeck.shuffle(mainDeck);
 
-// 	var random = Math.floor((Math.random()*52)+1);
-// 	for(var i = deck.length -1; i > 1; i--){
-// 		var nxt = random
-// 	}
-// }
-class Deck{
-	constructor(){
-		this.deck = [];
-		this.dealCards = [];
-	}
+	this.playerDeck = new Deck
+	this.computerDeck = new Deck();
+
+
+	for(var i = 0; i <= 25; i++){
+	
+	this.playerDeck.deck[i] = this.mainDeck.deck.shift();
+	this.computerDeck.deck[i]= this.mainDeck.deck.shift();
+	
+	 }
+	 var runGame = true;
+	 while(!playerDeck.deck.length == 0 && !computerDeck.deck.length == 0 && runGame){
+
+	 		var playerPick = playerDeck.draw();
+	 		var computerPick = computerDeck.draw();
+	 		var playerBet = inputInt("You drew "+playerPick.name +"! How much would you like to bet?");
+	 		var computerMatch = playerBet;
+	 		var thePot = playerBet + computerMatch;
+
+	 		if(playerPick.face.value > computerPick.face.value){
+	 			currentPlayer.credits += computerMatch;
+	 			alert("You won! HAL has drawn "+computerPick.name+"!\n"+
+                                "You have won "+computerMatch+" credits this round\n\n"+
+                                "Total Credits: "+currentPlayer.credits);
+	 		}else if(playerPick.face.value < computerPick.face.value){
+	 			currentPlayer.credits -= playerBet;
+	 			alert("HAL won! HAL has drawn "+computerPick.name+"!\n" +
+                                "You lost "+playerBet+" credits this round.\n\n" +
+                                "Total Credits: "+currentPlayer.credits);
+	 		}else{
+	 			alert("Oh look a tie!! Double or nothing now!");
+	 			while(playerPick.face.value == computerPick.face.value){
+	 					playerPick = playerDeck.draw();
+	 					computerPick = computerDeck.draw();
+
+	 					
+	 					alert("You have drawn "+playerPick.name+"\n" +
+                                    "Hal has drawn a "+computerPick.name);
+	 					if(playerPick.face.value > computerPick.face.value){
+	 						currentPlayer.credits += thePot*2;
+                                    alert(" You won! You beat HAL this round!\n" +
+                                        "You have won "+thePot+" credits this round\n\n" +
+                                        "Total Credits: "+currentPlayer.credits);
+	 					}
+	 					else if(playerPick.face.value < computerPick.face.value){
+	 						currentPlayer.credits -= playerBet*2;
+                                    alert(" You won! You beat HAL this round!\n" +
+                                        "You have won "+thePot+" credits this round\n\n" +
+                                        "Total Credits: "+currentPlayer.credits);
+
+	 			}
+	 		}	
+	 }
+}
 }
 
-function createDeck(){
-	var card = (suit, face) =>{
-		this.name = face + ' of ' + suit;
+class Player
+{
+		
+		constructor(userName, credits){
+		this.userName = userName;
+		this.credits = credits;
+		}
+
+	}
+class  Deck{
+	constructor(){
+		this.deck = [];
+		
+	}
+
+
+ createDeck(){
+		var card = (suit, face) =>{
+		this.name = face.name + ' of ' + suit.name;
 		this.suit = suit;
 		this.face = face;
 
 		return{name:this.name, suit:this.suit, face:this.face}
 	}
+	var face = [{value: 1, name: "2"},
+				{value: 2, name: "3"},
+				{value: 3, name: "4"},
+				{value: 4, name: "5"},
+				{value: 5, name: "6"},
+				{value: 6, name: "7"},
+				{value: 7, name: "8"},
+				{value: 8, name: "9"},
+				{value: 9, name: "10"},
+				{value: 10, name: "Jack"},
+				{value: 11, name: "Queen"},
+				{value: 12, name: "King"},
+				{value: 13, name: "Ace"}];
 
-	var face = ['2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace']
-	var suit = ['Hearts', 'Clubs','Spades','Diamonds']
+	//var face =  ['2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'10':9,'Jack':10,'Queen':11,'King':12,'Ace':13}
+	
+	var suit = [{name: 'Hearts'}, {name:'Clubs'},{name:'Spades'},{name: 'Diamonds'}]
 
 	for (var s = 0; s < suit.length; s++){
 		for(var f = 0; f < face.length; f++){
 			this.deck.push(card(suit[s], face[f]))
+			}
 		}
+
 	}
+shuffle() {
+  		var index = this.deck.length, tmpFace, rdmIndex
+
+  		while(0 != index){
+  			rdmIndex = Math.floor(Math.random() * index)
+  			index -= 1;
+  			tmpFace = this.deck[index]
+  			this.deck[index] = this.deck[rdmIndex]
+  			this.deck[rdmIndex] = tmpFace
+  		}
+	}
+draw(){
+		var cardDealt = this.deck.shift()
+		return cardDealt;
+	}
+
 
 }
 
@@ -87,6 +172,8 @@ var userChoice = inputInt("Let's play some Card Roulette with HAL from 2001: A S
 				 	}
 
 					alert("Welcome "+currentPlayer.userName+"! You are starting with "+currentPlayer.credits+" credits!\n Let's Play!");
+					var p = new Deck();
+					playGame();
 					 break;
 
 			case 2:  
