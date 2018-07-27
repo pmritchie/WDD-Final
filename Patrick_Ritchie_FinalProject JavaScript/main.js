@@ -129,7 +129,6 @@ class Player extends Credits
 			super(credits)
 		this.userName = userName;
 		}
-
 	}
 //deck class to build cards, make deck, shuffle and draw cards from hand
 class  Deck{
@@ -199,15 +198,7 @@ var userChoice = inputInt("Let's play some Card Roulette with HAL from 2001: A S
 			case 1: var newPlayer =inputBlank("Enter Player Name: ");
 				 	var currentPlayer = new Player(newPlayer,500);
 				 	
-				 	// if(localStorage.getItem('players') == null){
-				 	// 	localStorage.setItem('players', JSON.stringify(currentPlayer));
-				 	// }else{
-				 	// 	var oldPlayers = [];
-				 	// 	oldPlayers.push(JSON.parse(localStorage.getItem('players')));
-
-				 	// 	oldPlayers.push(currentPlayer);
-				 	// 	localStorage.setItem('players', JSON.stringify(oldPlayers));
-				 	// }
+				 	savePlayer();
 
 					alert("Welcome "+currentPlayer.userName+"! You are starting with "+currentPlayer.credits+" credits!\n Let's Play!");
 					

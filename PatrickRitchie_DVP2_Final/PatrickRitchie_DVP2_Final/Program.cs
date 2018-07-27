@@ -5,14 +5,18 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Drawing;
+using Console = Colorful.Console;
 namespace PatrickRitchie_DVP2_Final
 {
     class Program
     {
+        
         static string outputFolder = @"..\..\Output\";
         static string fileName = @"Player.json";
         static void Main(string[] args)
         {
+      
             Directory.CreateDirectory(outputFolder);
             bool programIsRunning = true;
             Player currentPlayer = new Player();
@@ -95,21 +99,26 @@ namespace PatrickRitchie_DVP2_Final
                         string json = sr.ReadToEnd();
                         List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
                         int assignment = 1;
-                       
+                        int r = 255;
+                        int g = 200;
+                        int b = 150;
                         foreach (var item in convert)
                         {
-                            Console.WriteLine($"{assignment}\nName: {item.Name}\nCredits: {item.Credits}");
+                            Console.WriteLine($"{assignment}\nName: {item.Name}\nCredits: {item.Credits}",Color.FromArgb(r,g,b));
                             assignment++;
+                            r -= 50;
+                            b -= 50;
                         }
                         int userChoice = Validation.GetInt(1, convert.Count, "Select from the options above: ");
-                        currentPlayer = convert[userChoice - 1];
-                        Console.WriteLine($"Welcome {currentPlayer.Name}! Lets play some cards! Your current credits are at {currentPlayer.Credits}!");
+                        currentPlayer = convert[userChoice-1];
+                        Console.Clear();
+                        Console.WriteLine($"Welcome {currentPlayer.Name}! Lets play some cards! Your current credits are at {currentPlayer.Credits}!\n",Color.Goldenrod);
                         sr.Close();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("There are no profiles available, create one first");
+                    Console.WriteLine("There are no profiles available, create one first", Color.Pink);
                 }
             }
             // start game loop
@@ -149,57 +158,57 @@ namespace PatrickRitchie_DVP2_Final
                         
 
                         Console.WriteLine($"You have drawn {playerPick.face} of {playerPick.suit}!\n" +
-                            "How much would you like to bet?");
+                            "How much would you like to bet?", Color.LightBlue);
                         int playerBet = Validation.GetInt(0, currentPlayer.Credits,$"Place a bet between $0 and ${currentPlayer.Credits}");
                         int computerMatch = playerBet;
                         int thePot = playerBet + computerMatch;
-                        Console.WriteLine($"HAL has drawn {computerPick.face} of { computerPick.suit}!");
+                        Console.WriteLine($"HAL has drawn {computerPick.face} of { computerPick.suit}!", Color.LightBlue);
                         
 
                         if((int)playerPick.face >(int)computerPick.face)
                         {
-                            currentPlayer.Credits += thePot;
+                            currentPlayer.Credits += computerMatch;
                             Console.WriteLine(" You won! You beat HAL this round!\n"+
                                 $"You have won {thePot} credits this round\n\n"+
-                                $"Total Credits: {currentPlayer.Credits}");
+                                $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
                             Utility.PauseBeforeContinuing();
                         }
                         else if((int) playerPick.face < (int)computerPick.face)
                         {
                             
-                            currentPlayer.Credits -= thePot;
+                            currentPlayer.Credits -= playerBet;
                             Console.WriteLine("HAL won! Don't let HAL win anymore!" +
                                 $"You lost {thePot} credits this round.\n\n" +
-                                $"Total Credits: {currentPlayer.Credits}");
+                                $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
                             Utility.PauseBeforeContinuing();
                         }
                         else// incase of a draw, double or nothing
                         {
-                            Console.WriteLine("Oh look a draw!! Double or nothing now!");
+                            Console.WriteLine("Oh look a draw!! Double or nothing now!",Color.HotPink);
                             while((int) playerPick.face == (int)computerPick.face)
                             {
                                 playerPick = (PlayingCard)player.draw();
                                 computerPick = (PlayingCard)computer.draw();
+
                                 
-                                thePot = thePot * 2;
                                 Console.WriteLine($"You have drawn {playerPick.face} of {playerPick.suit}!\n"+
-                                    $"Hal has drawn a {computerPick.face} of {computerPick.suit}\n\n");
+                                    $"Hal has drawn a {computerPick.face} of {computerPick.suit}\n\n",Color.LightBlue);
 
                                 if ((int)playerPick.face > (int)computerPick.face)
                                 {
                                     currentPlayer.Credits += thePot;
                                     Console.WriteLine(" You won! You beat HAL this round!\n" +
                                         $"You have won {thePot} credits this round\n\n" +
-                                        $"Total Credits: {currentPlayer.Credits}");
+                                        $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
                                     Utility.PauseBeforeContinuing();
 
                                 }
                                 else if ((int)playerPick.face < (int)computerPick.face)
                                 {
-                                    currentPlayer.Credits -= playerBet *2;
+                                    currentPlayer.Credits -= thePot;
                                     Console.WriteLine("HAL won! Don't let HAL win anymore!" +
                                          $"You lost {playerBet *2} credits this round.\n\n" +
-                                         $"Total Credits: {currentPlayer.Credits}");
+                                         $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
                                     Utility.PauseBeforeContinuing();
                                 }
                             }
@@ -208,7 +217,7 @@ namespace PatrickRitchie_DVP2_Final
                         }
                         if (currentPlayer.Credits <= 0)
                         {
-                            Console.WriteLine("You Lose! Better Luck Next time!");
+                            Console.WriteLine("You Lose! Better Luck Next time!", Color.LightBlue);
                             currentPlayer = null;
                             Utility.PauseBeforeContinuing();
                             MainMenu();
@@ -219,14 +228,15 @@ namespace PatrickRitchie_DVP2_Final
                             Console.WriteLine("Continue?\n\n" +
                                 "1: Yes\n" +
                                 "2: Main Menu\n" +
-                                "3: Save and Quit\n");
+                                "3: Save and Quit\n", Color.Goldenrod);
 
                             int choice = Validation.GetInt(1, 3, "Choose an option above\n");
+                            Console.Clear();
                             switch (choice)
                             {
                                 case 1:
                                     {
-                                        Console.WriteLine("Alright, let's keep going!");
+                                        Console.WriteLine("Alright, let's keep going!", Color.LightBlue);
                                     }
                                     break;
                                 case 2:
@@ -258,12 +268,21 @@ namespace PatrickRitchie_DVP2_Final
                 //loop through main menu
                 while (programIsRunning)
                 {
-                    Console.WriteLine("Let's play some Card Roulette with HAL from 2001: A Space Odyssey!\n" +
-                        "1: New User\n" +
-                        "2: Existing User\n" +
-                        "3: Exit\n");
+                    int d = 244;
+                    int v = 212;
+                    int i = 255;
+                    for(int j = 0; j < 3; j++)
+                    {
+                        Console.WriteAscii("   CARD ROULETTE", Color.FromArgb(d, v, i));
+                        d -= 18;
+                        v -= 36;
+                    }
+                    Console.WriteLine ("                         Let's play some Card Roulette with HAL from 2001: A Space Odyssey!\n" +
+                        "                                             1: New User\n" +
+                        "                                             2: Existing User\n" +
+                        "                                             3: Exit\n", Color.Goldenrod);
                     //user selection
-                    int userChoice = Validation.GetInt(1, 3, "Select from the options above: ");
+                    int userChoice = Validation.GetInt(1, 3, "                                     Select from the options above: ");
                     Console.Clear();
                     switch (userChoice)
                     {
@@ -275,9 +294,9 @@ namespace PatrickRitchie_DVP2_Final
 
                                 int credits = 500;
                                 currentPlayer.Credits = credits;
-
+                                Console.WriteAscii("CARD ROULETTE", Color.FromArgb(d, v, i));
                                 Console.WriteLine($"Welcome, {currentPlayer.Name}! You are starting with {currentPlayer.Credits} credits!\n" +
-                                    "Let's Play!");
+                                    "Let's Play!",Color.Goldenrod);
 
                                 
                                 PlayGame();
@@ -290,11 +309,12 @@ namespace PatrickRitchie_DVP2_Final
                                 //load player data and choose player
 
                                 LoadJsonPlayers();
-                                if(currentPlayer == null)
+                                if(currentPlayer != null)
                                 {
+                                    
                                     PlayGame();
                                 }
-                                
+
 
                                 Console.Clear();
 
