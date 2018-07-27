@@ -170,21 +170,21 @@ namespace PatrickRitchie_DVP2_Final
                             currentPlayer.Credits += computerMatch;
                             Console.WriteLine(" You won! You beat HAL this round!\n"+
                                 $"You have won {thePot} credits this round\n\n"+
-                                $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
+                                $"Total Credits: {currentPlayer.Credits}\n", Color.Goldenrod);
                             Utility.PauseBeforeContinuing();
                         }
                         else if((int) playerPick.face < (int)computerPick.face)
                         {
                             
                             currentPlayer.Credits -= playerBet;
-                            Console.WriteLine("HAL won! Don't let HAL win anymore!" +
+                            Console.WriteLine("HAL won! Don't let HAL win anymore!\n" +
                                 $"You lost {thePot} credits this round.\n\n" +
-                                $"Total Credits: {currentPlayer.Credits}", Color.Goldenrod);
+                                $"Total Credits: {currentPlayer.Credits}\n", Color.Goldenrod);
                             Utility.PauseBeforeContinuing();
                         }
                         else// incase of a draw, double or nothing
                         {
-                            Console.WriteLine("Oh look a draw!! Double or nothing now!",Color.HotPink);
+                            Console.WriteLine("Oh look a draw!! Double or nothing now!\n",Color.HotPink);
                             while((int) playerPick.face == (int)computerPick.face)
                             {
                                 playerPick = (PlayingCard)player.draw();
@@ -236,7 +236,7 @@ namespace PatrickRitchie_DVP2_Final
                             {
                                 case 1:
                                     {
-                                        Console.WriteLine("Alright, let's keep going!", Color.LightBlue);
+                                        Console.WriteLine("Alright, let's keep going!\n", Color.LightBlue);
                                     }
                                     break;
                                 case 2:
