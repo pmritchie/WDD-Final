@@ -1,4 +1,5 @@
-function inputInt(message){
+function inputInt(message)
+{
 		var input = "";	
 			while(input == "" || Number.isInteger(input) == false){
 					var input = window.prompt(message)
@@ -10,21 +11,35 @@ function inputInt(message){
 		}
 	}
 }
-function inputBlank(message){
+function inputBlank(message)
+{
 		var input = "";
 		while(input == ""){
 			var input = window.prompt(message)
 			if(input.length == 0){
-				alert("Please do not leave blank to continue.")
+				console.log("Please do not leave blank to continue.")
 			}else{
 				
 				return input;
 			}
 		}
 	}
+//call to save player info
+function savePlayer()
+{
+		if(localStorage.getItem('players') == null){
+				 localStorage.setItem('players', JSON.stringify(currentPlayer));
+			}else{
+			var oldPlayers = [];
+				oldPlayers.push(JSON.parse(localStorage.getItem('players')));
 
-
- function playGame(){
+				 oldPlayers.push(currentPlayer);
+				 localStorage.setItem('players', JSON.stringify(oldPlayers));
+				 }
+}
+//this function will start the game, initialize a deck, then split the deck between the computer and player
+ function playGame()
+ {
 	this.mainDeck = new Deck();
 	this.mainDeck.createDeck(mainDeck);
 	this.mainDeck.shuffle(mainDeck);
@@ -40,6 +55,7 @@ function inputBlank(message){
 	
 	 }
 	 var runGame = true;
+	//this will  keep drawing cards until the hand is empty
 	 while(!playerDeck.deck.length == 0 && !computerDeck.deck.length == 0 && runGame){
 
 	 		var playerPick = playerDeck.draw();
@@ -47,9 +63,11 @@ function inputBlank(message){
 	 		var playerBet = inputInt("You drew "+playerPick.name +"! How much would you like to bet?");
 	 		var computerMatch = playerBet;
 	 		var thePot = playerBet + computerMatch;
-
+	 		var matchesWon = 0;
+	 		//determins who wins
 	 		if(playerPick.face.value > computerPick.face.value){
 	 			currentPlayer.credits += computerMatch;
+	 			matchesWon = matchesWon +1;
 	 			alert("You won! HAL has drawn "+computerPick.name+"!\n"+
                                 "You have won "+computerMatch+" credits this round\n\n"+
                                 "Total Credits: "+currentPlayer.credits);
@@ -59,6 +77,7 @@ function inputBlank(message){
                                 "You lost "+playerBet+" credits this round.\n\n" +
                                 "Total Credits: "+currentPlayer.credits);
 	 		}else{
+	 			//This is incase of a tie
 	 			alert("Oh look a tie!! Double or nothing now!");
 	 			while(playerPick.face.value == computerPick.face.value){
 	 					playerPick = playerDeck.draw();
@@ -68,7 +87,8 @@ function inputBlank(message){
 	 					alert("You have drawn "+playerPick.name+"\n" +
                                     "Hal has drawn a "+computerPick.name);
 	 					if(playerPick.face.value > computerPick.face.value){
-	 						currentPlayer.credits += thePot*2;
+	 						currentPlayer.credits += thePot;
+	 						matchesWon = matchesWon +1;
                                     alert(" You won! You beat HAL this round!\n" +
                                         "You have won "+thePot+" credits this round\n\n" +
                                         "Total Credits: "+currentPlayer.credits);
@@ -79,21 +99,39 @@ function inputBlank(message){
                                         "You have won "+thePot+" credits this round\n\n" +
                                         "Total Credits: "+currentPlayer.credits);
 
-	 			}
-	 		}	
-	 }
-}
-}
+	 				}
+	 			}	
+	 		}
+	 		//if player runs out of credit the game is ended, browser will refresh, playerdata not saved
+	 		if(currentPlayer.credits <= 0){
+	 			alert("You are out of credits and have lost, better luck next time!\n To play again refresh the browser and create new player.")
+	 			currentPlayer = null;
+	 			document.location.reload()
 
-class Player
-{
-		
-		constructor(userName, credits){
-		this.userName = userName;
+	 		} if(playerDeck.deck.length === 0){
+	 			alert("That is the end of the match! You won "+matchesWon+"!\n Total Credits: "+currentPlayer.credits);
+	 					savePlayer();
+	 					currentPlayer = null;
+	 					document.location.reload();
+	 				}
+	}
+}
+//parent class for person, like the bank
+class Credits{
+	constructor(credits){
 		this.credits = credits;
+	}
+}
+//child class extends Credits
+class Player extends Credits
+{
+		constructor(userName, credits){
+			super(credits)
+		this.userName = userName;
 		}
 
 	}
+//deck class to build cards, make deck, shuffle and draw cards from hand
 class  Deck{
 	constructor(){
 		this.deck = [];
@@ -123,8 +161,6 @@ class  Deck{
 				{value: 12, name: "King"},
 				{value: 13, name: "Ace"}];
 
-	//var face =  ['2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'10':9,'Jack':10,'Queen':11,'King':12,'Ace':13}
-	
 	var suit = [{name: 'Hearts'}, {name:'Clubs'},{name:'Spades'},{name: 'Diamonds'}]
 
 	for (var s = 0; s < suit.length; s++){
@@ -152,27 +188,29 @@ draw(){
 
 
 }
-
+// program starts here. I was having issue with scope in JavaScript. 
+//I was told by Scott to put everything in a class or function otherwise the currentPlayer data is accessible by 
+//anyone. I tried to fix this but ran out of time because of trying to figure out scope for all variables and objects.
 var userChoice = inputInt("Let's play some Card Roulette with HAL from 2001: A Space Odyssey!\n" +
                          "1: New User\n" +
-                         "2: Existing User\n" +
-                         "3: Exit\n")
+                         "2: Existing User\n"+
+                         "3: Exit");
 	switch (userChoice){
 			case 1: var newPlayer =inputBlank("Enter Player Name: ");
 				 	var currentPlayer = new Player(newPlayer,500);
 				 	
-				 	if(localStorage.getItem('players') == null){
-				 		localStorage.setItem('players', JSON.stringify(currentPlayer));
-				 	}else{
-				 		var oldPlayers = [];
-				 		oldPlayers.push(JSON.parse(localStorage.getItem('players')));
+				 	// if(localStorage.getItem('players') == null){
+				 	// 	localStorage.setItem('players', JSON.stringify(currentPlayer));
+				 	// }else{
+				 	// 	var oldPlayers = [];
+				 	// 	oldPlayers.push(JSON.parse(localStorage.getItem('players')));
 
-				 		oldPlayers.push(currentPlayer);
-				 		localStorage.setItem('players', JSON.stringify(oldPlayers));
-				 	}
+				 	// 	oldPlayers.push(currentPlayer);
+				 	// 	localStorage.setItem('players', JSON.stringify(oldPlayers));
+				 	// }
 
 					alert("Welcome "+currentPlayer.userName+"! You are starting with "+currentPlayer.credits+" credits!\n Let's Play!");
-					var p = new Deck();
+					
 					playGame();
 					 break;
 
@@ -189,15 +227,21 @@ var userChoice = inputInt("Let's play some Card Roulette with HAL from 2001: A S
 					 		currentPlayer = new Player(savedData[i].userName, savedData[i].credits)
 					 		containsPlayer = true;
 					 		console.log(currentPlayer);
+					 		alert("Welcome "+currentPlayer.userName+"! You are starting with "+currentPlayer.credits+" credits!\n Let's Play!");
+					 		playGame();
 						}
 					}
+					
 					if(containsPlayer != true){
 						alert('Player not found.')
+						document.location.reload();
 					}
 
 					
 					 break;
-			case 3:  break;
+			case 3:  
+					window.close();
+				break;
 				 }
 			
 

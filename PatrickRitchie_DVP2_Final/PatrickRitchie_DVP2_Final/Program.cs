@@ -9,8 +9,11 @@ namespace PatrickRitchie_DVP2_Final
 {
     class Program
     {
+        static string outputFolder = @"..\..\Output\";
+        static string fileName = @"Player.json";
         static void Main(string[] args)
         {
+            Directory.CreateDirectory(outputFolder);
             bool programIsRunning = true;
             Player currentPlayer = new Player();
             MainMenu();
@@ -19,12 +22,12 @@ namespace PatrickRitchie_DVP2_Final
             void SavePlayerJSON(Player name) {
 
                 //checks to see if file exists, if it does, load into a list to be rewritten as a new file with new info
-                if (File.Exists("Player.json")) {
+                if (File.Exists(outputFolder+fileName)) {
                     Console.Clear();
 
 
                     List<Player> converted;
-                    using (StreamReader sr = new StreamReader("Player.json"))
+                    using (StreamReader sr = new StreamReader(outputFolder+fileName))
                     { 
                         string json = sr.ReadToEnd();
                         List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
@@ -40,23 +43,24 @@ namespace PatrickRitchie_DVP2_Final
                     else
                     {
 
-                        using (StreamWriter sw = new StreamWriter("Player.json"))
+                        using (StreamWriter sw = new StreamWriter(outputFolder+fileName))
                         {
+                            sw.WriteLine("[");
                             //add the existing players
                             foreach (var item in converted)
                             {
-                                sw.WriteLine("[");
+                                
                                 sw.WriteLine("{");
-                                sw.WriteLine($"\"Name\" : \"{item.Name}\",");
-                                sw.WriteLine($"\"Credits\" : \"{item.Credits}\",");
+                                sw.Write($"\"Name\" : \"{item.Name}\",");
+                                sw.Write($"\"Credits\" : \"{item.Credits}\",");
                                 sw.WriteLine("},");
 
                             }
                             //writes in new player
 
                             sw.WriteLine("{");
-                            sw.WriteLine($"\"Name\" : \"{name.Name}\",");
-                            sw.WriteLine($"\"Credits\" : \"{name.Credits}\"");
+                            sw.Write($"\"Name\" : \"{name.Name}\",");
+                            sw.Write($"\"Credits\" : \"{name.Credits}\"");
                             sw.WriteLine("}");
                             sw.WriteLine("]");
 
@@ -68,12 +72,12 @@ namespace PatrickRitchie_DVP2_Final
                     
                 } else
                 {
-                    using (StreamWriter sw = new StreamWriter("Player.json"))
+                    using (StreamWriter sw = new StreamWriter(outputFolder+fileName))
                     {
                         sw.WriteLine("[");
                         sw.WriteLine("{");
-                        sw.WriteLine($"\"Name\" : \"{name.Name}\",");
-                        sw.WriteLine($"\"Credits\" : \"{name.Credits}\"");
+                        sw.Write($"\"Name\" : \"{name.Name}\",");
+                        sw.Write($"\"Credits\" : \"{name.Credits}\"");
                         sw.WriteLine("}");
                         sw.WriteLine("]");
 
@@ -84,9 +88,9 @@ namespace PatrickRitchie_DVP2_Final
             // function to load and choose players
              void LoadJsonPlayers()
             {
-                if (File.Exists("Player.json"))
+                if (File.Exists(outputFolder+fileName))
                 {
-                    using (StreamReader sr = new StreamReader("Player.json"))
+                    using (StreamReader sr = new StreamReader(outputFolder+fileName))
                     {
                         string json = sr.ReadToEnd();
                         List<Player> convert = JsonConvert.DeserializeObject<List<Player>>(json);
